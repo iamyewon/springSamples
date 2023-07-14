@@ -8,5 +8,6 @@ public interface MemberService {
 	
 	boolean addmember(MemberDto dto);
 	
-	boolean login(MemberDto dto);
+	//boolean login(MemberDto dto);
+	MemberDto login(MemberDto dto);
 }
