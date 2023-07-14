@@ -11,5 +11,5 @@ public interface MemberDao {
 	
 	int addmember(MemberDto dto);
 
-	int login(MemberDto dto);
+	MemberDto login(MemberDto dto);
 }

@@ -28,9 +28,10 @@ public class MemberDaoImpl implements MemberDao{
 	}
 
 	@Override
-	public int login(MemberDto dto) {
-		return session.selectOne(ns+"login", dto);
+	public MemberDto login(MemberDto dto) {		
+		return session.selectOne(ns + "login", dto);
 	}
+	
 	
 	
 	

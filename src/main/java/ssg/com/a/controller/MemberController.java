@@ -2,6 +2,8 @@ package ssg.com.a.controller;
 
 import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,18 +59,18 @@ public class MemberController {
 		return "message";
 	}
 	
-	@PostMapping("login.do")
-	public String login(MemberDto dto) { // HttpServletRequest request 이런 것도 사용 가능 
-		System.out.println("MemberController loginAf()" + new Date());
-		boolean loginS = service.login(dto);
-		
-		String location = "home";
-		if(!loginS){
-			location = "login";
-		}
-		
-		return location;
-	}
+//	@PostMapping("login.do")
+//	public String login(MemberDto dto) { // HttpServletRequest request 이런 것도 사용 가능 
+//		System.out.println("MemberController loginAf()" + new Date());
+//		boolean loginS = service.login(dto);
+//		
+//		String location = "home";
+//		if(!loginS){
+//			location = "login";
+//		}
+//		
+//		return location;
+//	}
 	
 	// Model model 처럼
 	// request가 필요할 때 HttpServletRequest request
@@ -76,6 +78,19 @@ public class MemberController {
 	// request.getSession().setAttribute("login", dto); // session에 저장 
 	// 이런 식으로 사용 가능 
 	
-	
+	@PostMapping("loginAf.do")
+	public String login(MemberDto mem, Model model, HttpServletRequest request) {
+		System.out.println("MemberController login() " + new Date());
+		
+		MemberDto dto = service.login(mem);
+		String loginmsg = "LOGIN_NO";
+		if(dto != null) {
+			request.getSession().setAttribute("login", dto);	// session에 저장			
+			loginmsg = "LOGIN_YES";
+		}
+		model.addAttribute("loginmsg", loginmsg);
+		
+		return "message";
+	}
 	
 }
